@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.gome</groupId>
+    <artifactId>clover</artifactId>
+    <version>1.0</version>
+    <packaging>pom</packaging>
+    <name>clover</name>
+
+    <modules>
+        <module>clover-common</module>
+        <module>clover-core</module>
+        <module>clover-client</module>
+        <module>clover-server</module>
+        <module>clover-admin</module>
+        <module>clover-monitor</module>
+        <module>clover-examples</module>
+    </modules>
+    <properties>
+        <jdk.version>1.6</jdk.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+        <spring.version>3.2.4.RELEASE</spring.version>
+        <maven.test.skip>true</maven.test.skip>
+        <maven.jdoc.skip>true</maven.jdoc.skip>
+        <downloadSources>true</downloadSources>
+        <!-- <clover.version>dev-1.0</clover.version>--><!--<clover.version>dev-1.0-SNAPSHOT</clover.version>-->
+    </properties>
+
+    <!-- 打包配置信息 -->
+    <profiles>
+        <profile>
+            <!-- 开发环境 -->
+            <id>dev</id>
+            <!-- 默认 -->
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <resources.dir>src/main/resources/dev</resources.dir>
+                <clover.version>1.0.dev-SNAPSHOT</clover.version>
+                <package.environment>dev</package.environment>
+                <!--zk 配置 开始-->
+                <clover.zk.address>10.58.50.206:2181,10.58.50.207:2181,10.58.50.208:2181</clover.zk.address>
+                <clover.zk.rootPath>/clover</clover.zk.rootPath>
+                <clover.zk.zkSessionTimeout>30000</clover.zk.zkSessionTimeout>
+                <clover.zk.userName>cloverAdmin</clover.zk.userName>
+                <clover.zk.password>password</clover.zk.password>
+                <!--zk 配置 结束-->
+
+                <!--mongoDB 配置 开始-->
+                <clover.mongoDB.mongoAddress>10.58.50.134:27077,10.58.50.133:27077</clover.mongoDB.mongoAddress>
+                <clover.mongoDB.dbName>spec_pub</clover.mongoDB.dbName>
+                <clover.mongoDB.userName>user_spec_pub</clover.mongoDB.userName>
+                <clover.mongoDB.password>SrVlPrIGgu7ZM2Ox</clover.mongoDB.password>
+                <clover.mongoDB.connectionsPerHost>100</clover.mongoDB.connectionsPerHost>
+                <clover.mongoDB.threadsAllowedToBlockForConnectionMultiplier>10</clover.mongoDB.threadsAllowedToBlockForConnectionMultiplier>
+                <clover.mongoDB.connectTimeout>180000</clover.mongoDB.connectTimeout>
+                <clover.mongoDB.maxWaitTime>30000</clover.mongoDB.maxWaitTime>
+                <clover.mongoDB.autoConnectRetry>true</clover.mongoDB.autoConnectRetry>
+                <clover.mongoDB.socketKeepAlive>false</clover.mongoDB.socketKeepAlive>
+                <clover.mongoDB.socketTimeout>180000</clover.mongoDB.socketTimeout>
+                <!--mongoDB 配置 结束-->
+
+                <!--redis 配置 开始-->
+                <clover.redis.server>10.58.50.208</clover.redis.server>
+                <clover.redis.port>6379</clover.redis.port>
+                <clover.redis.pool.maxActive>500</clover.redis.pool.maxActive>
+                <clover.redis.pool.maxIdle>20</clover.redis.pool.maxIdle>
+                <clover.redis.pool.maxWait>1000</clover.redis.pool.maxWait>
+                <!--redis 配置 结束-->
+
+                <!--common 配置 开始-->
+                <clover.common.zmqServerPort>10.58.50.208</clover.common.zmqServerPort>
+                <clover.common.defaultCompanyEmail>xiaoxiangxu@yolo24.com</clover.common.defaultCompanyEmail>
+                <clover.common.defaultPrivateEmail>zhutouzan@163.com</clover.common.defaultPrivateEmail>
+                <clover.common.token>6fb8535d703f2492704aefc212b7cd41</clover.common.token>
+                <!--common 配置 结束-->
+            </properties>
+        </profile>
+        <profile>
+            <!-- sit环境 -->
+            <id>sit</id>
+            <!-- 默认 -->
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <resources.dir>src/main/resources/sit</resources.dir>
+                <clover.version>1.0.sit-SNAPSHOT</clover.version>
+                <package.environment>dev</package.environment>
+                <!--zk 配置 开始-->
+                <clover.zk.address>10.58.50.206:2181,10.58.50.207:2181,10.58.50.208:2181</clover.zk.address>
+                <clover.zk.rootPath>/clover</clover.zk.rootPath>
+                <clover.zk.zkSessionTimeout>30000</clover.zk.zkSessionTimeout>
+                <clover.zk.userName>cloverAdmin</clover.zk.userName>
+                <clover.zk.password>password</clover.zk.password>
+                <!--zk 配置 结束-->
+
+                <!--mongoDB 配置 开始-->
+                <clover.mongoDB.mongoAddress>10.126.53.42:27067,10.126.53.42:27068</clover.mongoDB.mongoAddress>
+                <clover.mongoDB.dbName>clover</clover.mongoDB.dbName>
+                <clover.mongoDB.userName>user_clover</clover.mongoDB.userName>
+                <clover.mongoDB.password>user_clover_pass</clover.mongoDB.password>
+                <clover.mongoDB.connectionsPerHost>100</clover.mongoDB.connectionsPerHost>
+                <clover.mongoDB.threadsAllowedToBlockForConnectionMultiplier>10</clover.mongoDB.threadsAllowedToBlockForConnectionMultiplier>
+                <clover.mongoDB.connectTimeout>180000</clover.mongoDB.connectTimeout>
+                <clover.mongoDB.maxWaitTime>30000</clover.mongoDB.maxWaitTime>
+                <clover.mongoDB.autoConnectRetry>true</clover.mongoDB.autoConnectRetry>
+                <clover.mongoDB.socketKeepAlive>false</clover.mongoDB.socketKeepAlive>
+                <clover.mongoDB.socketTimeout>180000</clover.mongoDB.socketTimeout>
+                <!--mongoDB 配置 结束-->
+
+                <!--redis 配置 开始-->
+                <clover.redis.server>10.58.50.208</clover.redis.server>
+                <clover.redis.port>6379</clover.redis.port>
+                <clover.redis.pool.maxActive>500</clover.redis.pool.maxActive>
+                <clover.redis.pool.maxIdle>20</clover.redis.pool.maxIdle>
+                <clover.redis.pool.maxWait>1000</clover.redis.pool.maxWait>
+                <!--redis 配置 结束-->
+
+                <!--common 配置 开始-->
+                <clover.common.zmqServerPort>10.58.50.208</clover.common.zmqServerPort>
+                <clover.common.defaultCompanyEmail>xiaoxiangxu@yolo24.com</clover.common.defaultCompanyEmail>
+                <clover.common.defaultPrivateEmail>stark_summer@qq.com</clover.common.defaultPrivateEmail>
+                <clover.common.token>6fb8535d703f2492704aefc212b7cd41</clover.common.token>
+                <!--common 配置 结束-->
+            </properties>
+        </profile>
+        <profile>
+            <!-- uat环境 -->
+            <id>uat</id>
+            <!-- 默认 -->
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <resources.dir>src/main/resources/uat</resources.dir>
+                <clover.version>1.0.uat-SNAPSHOT</clover.version>
+                <package.environment>uat</package.environment>
+                <!--zk 配置 开始-->
+                <clover.zk.address>10.58.50.203:2181,10.58.50.204:2181,10.58.50.205:2181</clover.zk.address>
+                <clover.zk.rootPath>/clover</clover.zk.rootPath>
+                <clover.zk.zkSessionTimeout>30000</clover.zk.zkSessionTimeout>
+                <clover.zk.userName>cloverAdmin</clover.zk.userName>
+                <clover.zk.password>password</clover.zk.password>
+                <!--zk 配置 结束-->
+
+                <!--mongoDB 配置 开始-->
+                <clover.mongoDB.mongoAddress>10.126.53.38:27067,10.126.53.38:27068</clover.mongoDB.mongoAddress>
+                <clover.mongoDB.dbName>clover</clover.mongoDB.dbName>
+                <clover.mongoDB.userName>user_clover</clover.mongoDB.userName>
+                <clover.mongoDB.password>user_clover_pass</clover.mongoDB.password>
+                <clover.mongoDB.connectionsPerHost>100</clover.mongoDB.connectionsPerHost>
+                <clover.mongoDB.threadsAllowedToBlockForConnectionMultiplier>10</clover.mongoDB.threadsAllowedToBlockForConnectionMultiplier>
+                <clover.mongoDB.connectTimeout>180000</clover.mongoDB.connectTimeout>
+                <clover.mongoDB.maxWaitTime>30000</clover.mongoDB.maxWaitTime>
+                <clover.mongoDB.autoConnectRetry>true</clover.mongoDB.autoConnectRetry>
+                <clover.mongoDB.socketKeepAlive>false</clover.mongoDB.socketKeepAlive>
+                <clover.mongoDB.socketTimeout>180000</clover.mongoDB.socketTimeout>
+                <!--mongoDB 配置 结束-->
+
+                <!--redis 配置 开始-->
+                <clover.redis.server>10.58.50.208</clover.redis.server>
+                <clover.redis.port>6379</clover.redis.port>
+                <clover.redis.pool.maxActive>500</clover.redis.pool.maxActive>
+                <clover.redis.pool.maxIdle>20</clover.redis.pool.maxIdle>
+                <clover.redis.pool.maxWait>1000</clover.redis.pool.maxWait>
+                <!--redis 配置 结束-->
+
+                <!--common 配置 开始-->
+                <clover.common.zmqServerPort>10.58.50.208</clover.common.zmqServerPort>
+                <clover.common.defaultCompanyEmail>xiaoxiangxu@yolo24.com</clover.common.defaultCompanyEmail>
+                <clover.common.defaultPrivateEmail>stark_summer@qq.com</clover.common.defaultPrivateEmail>
+                <clover.common.token>6fb8535d703f2492704aefc212b7cd41</clover.common.token>
+                <!--common 配置 结束-->
+            </properties>
+        </profile>
+        <profile>
+            <!-- pre环境 -->
+            <id>pre</id>
+            <!-- 默认 -->
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <resources.dir>src/main/resources/dev</resources.dir>
+                <clover.version>1.0.dev-SNAPSHOT</clover.version>
+                <package.environment>dev</package.environment>
+                <!--zk 配置 开始-->
+                <clover.zk.address>10.58.50.206:2181,10.58.50.207:2181,10.58.50.208:2181</clover.zk.address>
+                <clover.zk.rootPath>/clover</clover.zk.rootPath>
+                <clover.zk.zkSessionTimeout>30000</clover.zk.zkSessionTimeout>
+                <clover.zk.userName>cloverAdmin</clover.zk.userName>
+                <clover.zk.password>password</clover.zk.password>
+                <!--zk 配置 结束-->
+
+                <!--mongoDB 配置 开始-->
+                <clover.mongoDB.mongoAddress>10.126.45.45:27067,10.126.45.45:27068</clover.mongoDB.mongoAddress>
+                <clover.mongoDB.dbName>clover</clover.mongoDB.dbName>
+                <clover.mongoDB.userName>user_clover</clover.mongoDB.userName>
+                <clover.mongoDB.password>user_clover_pass</clover.mongoDB.password>
+                <clover.mongoDB.connectionsPerHost>100</clover.mongoDB.connectionsPerHost>
+                <clover.mongoDB.threadsAllowedToBlockForConnectionMultiplier>10</clover.mongoDB.threadsAllowedToBlockForConnectionMultiplier>
+                <clover.mongoDB.connectTimeout>180000</clover.mongoDB.connectTimeout>
+                <clover.mongoDB.maxWaitTime>30000</clover.mongoDB.maxWaitTime>
+                <clover.mongoDB.autoConnectRetry>true</clover.mongoDB.autoConnectRetry>
+                <clover.mongoDB.socketKeepAlive>false</clover.mongoDB.socketKeepAlive>
+                <clover.mongoDB.socketTimeout>180000</clover.mongoDB.socketTimeout>
+                <!--mongoDB 配置 结束-->
+
+                <!--redis 配置 开始-->
+                <clover.redis.server>10.58.50.208</clover.redis.server>
+                <clover.redis.port>6379</clover.redis.port>
+                <clover.redis.pool.maxActive>500</clover.redis.pool.maxActive>
+                <clover.redis.pool.maxIdle>20</clover.redis.pool.maxIdle>
+                <clover.redis.pool.maxWait>1000</clover.redis.pool.maxWait>
+                <!--redis 配置 结束-->
+
+                <!--common 配置 开始-->
+                <clover.common.zmqServerPort>10.58.50.208</clover.common.zmqServerPort>
+                <clover.common.defaultCompanyEmail>xiaoxiangxu@yolo24.com</clover.common.defaultCompanyEmail>
+                <clover.common.defaultPrivateEmail>stark_summer@qq.com</clover.common.defaultPrivateEmail>
+                <clover.common.token>6fb8535d703f2492704aefc212b7cd41</clover.common.token>
+                <!--common 配置 结束-->
+            </properties>
+        </profile>
+        <profile>
+            <!-- prd环境 -->
+            <id>prd</id>
+            <!-- 默认 -->
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <resources.dir>src/main/resources/dev</resources.dir>
+                <clover.version>1.0.dev-SNAPSHOT</clover.version>
+                <package.environment>dev</package.environment>
+                <!--zk 配置 开始-->
+                <clover.zk.address>10.58.50.206:2181,10.58.50.207:2181,10.58.50.208:2181</clover.zk.address>
+                <clover.zk.rootPath>/clover</clover.zk.rootPath>
+                <clover.zk.zkSessionTimeout>30000</clover.zk.zkSessionTimeout>
+                <clover.zk.userName>cloverAdmin</clover.zk.userName>
+                <clover.zk.password>password</clover.zk.password>
+                <!--zk 配置 结束-->
+
+                <!--mongoDB 配置 开始-->
+                <clover.mongoDB.mongoAddress>10.58.50.134:27077,10.58.50.133:27077</clover.mongoDB.mongoAddress>
+                <clover.mongoDB.dbName>spec_pub</clover.mongoDB.dbName>
+                <clover.mongoDB.userName>user_spec_pub</clover.mongoDB.userName>
+                <clover.mongoDB.password>SrVlPrIGgu7ZM2Ox</clover.mongoDB.password>
+                <clover.mongoDB.connectionsPerHost>100</clover.mongoDB.connectionsPerHost>
+                <clover.mongoDB.threadsAllowedToBlockForConnectionMultiplier>10</clover.mongoDB.threadsAllowedToBlockForConnectionMultiplier>
+                <clover.mongoDB.connectTimeout>180000</clover.mongoDB.connectTimeout>
+                <clover.mongoDB.maxWaitTime>30000</clover.mongoDB.maxWaitTime>
+                <clover.mongoDB.autoConnectRetry>true</clover.mongoDB.autoConnectRetry>
+                <clover.mongoDB.socketKeepAlive>false</clover.mongoDB.socketKeepAlive>
+                <clover.mongoDB.socketTimeout>180000</clover.mongoDB.socketTimeout>
+                <!--mongoDB 配置 结束-->
+
+                <!--redis 配置 开始-->
+                <clover.redis.server>10.58.50.208</clover.redis.server>
+                <clover.redis.port>6379</clover.redis.port>
+                <clover.redis.pool.maxActive>500</clover.redis.pool.maxActive>
+                <clover.redis.pool.maxIdle>20</clover.redis.pool.maxIdle>
+                <clover.redis.pool.maxWait>1000</clover.redis.pool.maxWait>
+                <!--redis 配置 结束-->
+
+                <!--common 配置 开始-->
+                <clover.common.zmqServerPort>10.58.50.208</clover.common.zmqServerPort>
+                <clover.common.defaultCompanyEmail>xiaoxiangxu@yolo24.com</clover.common.defaultCompanyEmail>
+                <clover.common.defaultPrivateEmail>stark_summer@qq.com</clover.common.defaultPrivateEmail>
+                <clover.common.token>6fb8535d703f2492704aefc212b7cd41</clover.common.token>
+                <!--common 配置 结束-->
+            </properties>
+        </profile>
+    </profiles>
+
+    <!-- 插件管理 -->
+    <build>
+        <defaultGoal>compile</defaultGoal>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>${jdk.version}</source>
+                    <target>${jdk.version}</target>
+                    <encoding>${maven.compiler.encoding}</encoding>
+                    <showDeprecation>true</showDeprecation>
+                    <showWarnings>true</showWarnings>
+                    <!--<compilerArguments>
+                        <verbose/>
+                        <bootclasspath>${java.home}/lib/rt.jar</bootclasspath>
+                    </compilerArguments>-->
+                </configuration>
+            </plugin>
+
+            <!-- 跳过单元测试 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.17</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <downloadSources>true</downloadSources>
+                    <downloadJavadocs>false</downloadJavadocs>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <encoding>${maven.compiler.encoding}</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <archiveClasses>false</archiveClasses>
+                    <!--   <webResources>
+                           <resource>
+                               <directory>src/main/resources/</directory>
+                               <targetPath>WEB-INF/classes</targetPath>
+                           </resource>
+                       </webResources>
+                       <packagingExcludes>&lt;!&ndash; 排除多余配置文件 &ndash;&gt;
+                           WEB-INF/classes/sit/**,
+                           WEB-INF/classes/uat/**
+                       </packagingExcludes>-->
+                </configuration>
+            </plugin>
+
+
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>clirr-maven-plugin</artifactId>
+                <version>2.6.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.6</version>
+            </plugin>
+
+        </plugins>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
+
+    <distributionManagement>
+        <repository>
+            <id>nexus-releases</id>
+            <name>Nexus Release Repository</name>
+            <url>http://maven.ds.gome.com.cn/nexus/content/repositories/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <name>Nexus Snapshot Repository</name>
+            <url>http://maven.ds.gome.com.cn/nexus/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- LOG4J日志记录 -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>1.6.4</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>1.6.4</version>
+            </dependency>
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>1.2.17</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-lang</groupId>
+                <artifactId>commons-lang</artifactId>
+                <version>2.5</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>1.2</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>servlet-api</artifactId>
+                <version>2.4</version>
+                <!--<scope>provided</scope>-->
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>1.1.31</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.zookeeper</groupId>
+                <artifactId>zookeeper</artifactId>
+                <version>3.4.5</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.quartz-scheduler</groupId>
+                <artifactId>quartz</artifactId>
+                <version>2.2.1</version>
+                <!--${quartz.version}-->
+            </dependency>
+            <dependency>
+                <groupId>org.mongodb</groupId>
+                <artifactId>mongo-java-driver</artifactId>
+                <version>2.11.3</version>
+            </dependency>
+
+            <dependency>
+                <groupId>redis.clients</groupId>
+                <artifactId>jedis</artifactId>
+                <version>2.6.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>com.springsource.org.apache.httpcomponents.httpclient</artifactId>
+                <version>4.2.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>com.springsource.org.apache.httpcomponents.httpcore</artifactId>
+                <version>4.2.1</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>4.0.13.Final</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.rocketmq</groupId>
+                <artifactId>rocketmq-client</artifactId>
+                <version>3.1.8</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>com.springsource.org.apache.commons.codec</artifactId>
+                <version>1.6.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.zeromq</groupId>
+                <artifactId>jeromq</artifactId>
+                <version>0.3.4</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.mail</groupId>
+                <artifactId>mail</artifactId>
+                <version>1.5.0-b01</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sun</groupId>
+                <artifactId>tools</artifactId>
+                <version>1.5.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.catalina</groupId>
+                <artifactId>com.springsource.org.apache.catalina</artifactId>
+                <version>7.0.26</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-framework</artifactId>
+                <version>2.7.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>3.2.4.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-webmvc</artifactId>
+                <version>3.2.4.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-beans</artifactId>
+                <version>3.2.4.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>com.typesafe.akka</groupId>
+                <artifactId>akka-actor</artifactId>
+                <version>2.0.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.typesafe.akka</groupId>
+                <artifactId>akka-zeromq_2.10</artifactId>
+                <version>2.1.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.1</version>
+            </dependency>
+
+
+
+            <!--   <dependency>
+                   <groupId>com.typesafe.akka</groupId>
+                   <artifactId>akka-zeromq_2.11</artifactId>
+                   <version>2.3.7</version>
+                   <exclusions>
+                       <exclusion>
+                           <groupId>com.typesafe.akka</groupId>
+                           <artifactId>akka-actor_2.11</artifactId>
+                       </exclusion>
+                   </exclusions>
+               </dependency>-->
+
+            <dependency>
+                <groupId>org.xerial.snappy</groupId>
+                <artifactId>snappy-java</artifactId>
+                <version>1.1.1.6</version>
+            </dependency>
+
+            <!-- 单元测试 -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.11</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+
+    </dependencyManagement>
+
+</project>

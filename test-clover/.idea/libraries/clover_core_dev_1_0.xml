@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="clover-core-dev-1.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../clover/clover-admin/target/clover-admin-dev-1.0/WEB-INF/lib/clover-core-dev-1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../clover/clover-admin/target/clover-admin-dev-1.0/WEB-INF/lib/clover-client-dev-1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

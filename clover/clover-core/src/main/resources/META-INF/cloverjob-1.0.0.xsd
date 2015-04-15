@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns="http://www.gome.com.cn/schema/cloverjob"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://www.gome.com.cn/schema/cloverjob"
+            elementFormDefault="qualified"
+            attributeFormDefault="unqualified">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:import namespace="http://www.springframework.org/schema/tool"/>
+
+    <xsd:annotation>
+        <xsd:documentation><![CDATA[ Namespace support for the clover job  provided by clover. ]]></xsd:documentation>
+    </xsd:annotation>
+
+    <xsd:element name="config">
+        <xsd:annotation>
+            <xsd:documentation><![CDATA[ clover config 的配置节点 ]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:attribute name="systemId" type="xsd:string" use="required" >
+                <xsd:annotation>
+                    <xsd:documentation><![CDATA[ systemId ]]></xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+            <xsd:attribute name="token" type="xsd:string" use="required" >
+                <xsd:annotation>
+                    <xsd:documentation><![CDATA[ token ]]></xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+
+            <xsd:attribute name="jobClassName" type="xsd:string" use="required" >
+                <xsd:annotation>
+                    <xsd:documentation><![CDATA[ job class name 集合 ]]></xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+            <xsd:attribute name="isStartupMQ" type="xsd:string" use="optional" default="true">
+                <xsd:annotation>
+                    <xsd:documentation><![CDATA[ 是否启动MQ ]]></xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+            <xsd:attribute name="isStartupNetty" type="xsd:string" use="optional" default="true">
+                <xsd:annotation>
+                    <xsd:documentation><![CDATA[ 是否启动NETTY ]]></xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+
+            <xsd:attribute name="isRegisterToZK" type="xsd:string" use="optional" default="true">
+                <xsd:annotation>
+                    <xsd:documentation><![CDATA[ 是否注册到ZK ]]></xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+            <xsd:attribute name="port" type="xsd:string" use="optional" default="-1">
+                <xsd:annotation>
+                    <xsd:documentation><![CDATA[ mq 消费者端口 ]]></xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="job">
+        <xsd:annotation>
+            <xsd:documentation><![CDATA[ clover job 的配置节点 ]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:attribute name="id" type="xsd:string" use="required">
+                <xsd:annotation>
+                    <xsd:documentation><![CDATA[ id ]]></xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+            <xsd:attribute name="jobGroup" type="xsd:string" use="required">
+                <xsd:annotation>
+                    <xsd:documentation><![CDATA[ job 所属组 ]]></xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+            <xsd:attribute name="jobName" type="xsd:string" use="required" >
+                <xsd:annotation>
+                    <xsd:documentation><![CDATA[ job 名称 ]]></xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+            <xsd:attribute name="jobType" type="xsd:string" use="optional" default="LOCAL">
+                <xsd:annotation>
+                    <xsd:documentation><![CDATA[ job类型 LOCAL,REMOTE ]]></xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+            <xsd:attribute name="executeType" type="xsd:string" use="optional" default="ADD">
+                <xsd:annotation>
+                    <xsd:documentation><![CDATA[ job 执行类型 ADD,UPDATE,DELETE ]]></xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+            <xsd:attribute name="jobStrategy" type="xsd:string" use="optional" default="HASH">
+                <xsd:annotation>
+                    <xsd:documentation><![CDATA[ job 策略 HASH,SYSTEM_CAPACITY ]]></xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+            <xsd:attribute name="startTime" type="xsd:string" use="optional">
+                <xsd:annotation>
+                    <xsd:documentation><![CDATA[ job 执行时间 ]]></xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+            <xsd:attribute name="cronExpression" type="xsd:string" use="optional">
+                <xsd:annotation>
+                    <xsd:documentation><![CDATA[ job cron执行表达式 ]]></xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+            <xsd:attribute name="fixedClientIps" type="xsd:string" use="optional">
+                <xsd:annotation>
+                    <xsd:documentation><![CDATA[ 指定客户端IP地址 ]]></xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+            <xsd:attribute name="fixedServerIps" type="xsd:string" use="optional">
+                <xsd:annotation>
+                    <xsd:documentation><![CDATA[ 指定服务端IP地址 ]]></xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+        </xsd:complexType>
+    </xsd:element>
+
+</xsd:schema>

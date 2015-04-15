@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xsi:schemaLocation="http://jakarta.apache.org/log4j/
+                        http://jakarta.apache.org/log4j/ ">
+    <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%5p] [%d{yyyy-MM-dd HH:mm:ss SSS}] [%t] (%F:%L) %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="FILE" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="Encoding" value="UTF-8"/>
+        <param name="File" value="/data/logs/clover/clover.log"/>
+        <!-- 日志路径，根据实际情况修改 -->
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%5p] [%d{yyyy-MM-dd HH:mm:ss SSS}] [%t] (%F:%L) %m%n"/>
+        </layout>
+    </appender>
+
+    <category name="com.gome" additivity="false">  <!-- 自定义的日志分类，请根据实际情况调整 -->
+        <priority value="INFO"/>
+        <!-- 根据实际情况修改日志级别，一般线上是INFO以上 -->
+        <appender-ref ref="CONSOLE"/>
+        <!-- 该appender需要在上线时删除，以免输出重复的日志到catalina.out文件 -->
+        <appender-ref ref="FILE"/>
+    </category>
+
+
+    <root>
+        <priority value="INFO"/>
+        <!-- 根据实际情况修改日志级别，一般线上是INFO以上 -->
+        <appender-ref ref="CONSOLE"/>
+        <!-- 该appender需要在上线时删除，以免输出重复的日志到catalina.out文件 -->
+        <appender-ref ref="FILE"/>
+    </root>
+</log4j:configuration>

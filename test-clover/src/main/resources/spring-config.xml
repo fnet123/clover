@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:cloverjob="http://www.gome.com.cn/schema/cloverjob" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.gome.com.cn/schema/cloverjob http:/www.gome.com.cn/schema/cloverjob/cloverjob.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+    <context:component-scan base-package="com.gome.testclover.spring"/>
+
+    <cloverjob:config token="6fb8535d703f2492704aefc212b7cd41" systemId="testClover"
+                      jobClassName="com.gome.testclover.spring.RemoteJobWithSpring,
+                      com.gome.testclover.spring.RemoteJob1WithSpring,
+                      com.gome.testclover.spring.RemoteJob2WithSpring,
+                      com.gome.testclover.spring.RemoteJob3WithSpring,
+                      com.gome.testclover.spring.RemoteCronJobWithSpringAnnotation,
+                      com.gome.testclover.spring.RemoteJob1WithSpringAnnotation,
+                      com.gome.testclover.spring.RemoteJob2WithSpringAnnotation,
+                      com.gome.testclover.spring.RemoteJob3WithSpringAnnotation,
+                      com.gome.testclover.spring.RemoteJobWithSpringAnnotation"/>
+
+    <cloverjob:job id="com.gome.testclover.spring.RemoteJobWithSpring" jobGroup="RemoteJobWithSpringGroup"
+                   jobName="RemoteJobWithSpringName"
+            jobType="REMOTE" executeType="ADD" jobStrategy="SYSTEM_CAPACITY" cronExpression="0/30 * * * * ?" />
+    <cloverjob:job id="com.gome.testclover.spring.RemoteJob1WithSpring" jobGroup="RemoteJob1WithSpringGroup"
+                   jobName="RemoteJob1WithSpringName"
+                   jobType="REMOTE" executeType="ADD" jobStrategy="SYSTEM_CAPACITY" cronExpression="0/30 * * * * ?" />
+    <cloverjob:job id="com.gome.testclover.spring.RemoteJob2WithSpring" jobGroup="RemoteJob2WithSpringGroup"
+                   jobName="RemoteJob2WithSpringName"
+                   jobType="REMOTE" executeType="ADD" jobStrategy="SYSTEM_CAPACITY" cronExpression="0/30 * * * * ?" />
+    <cloverjob:job id="com.gome.testclover.spring.RemoteJob3WithSpring" jobGroup="RemoteJob3WithSpringGroup"
+                   jobName="RemoteJob3WithSpringName"
+                   jobType="REMOTE" executeType="ADD" jobStrategy="SYSTEM_CAPACITY" cronExpression="0/30 * * * * ?" />
+
+</beans>
